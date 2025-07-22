@@ -14,26 +14,26 @@ print(df.describe())
 print(df.isnull().sum())
 
 numeric_columns=["age","bmi","children","charges"]
-# for i in numeric_columns:
-#     sns.histplot(df[i],kde=True)
-#     plt.show()
+ for i in numeric_columns:
+     sns.histplot(df[i],kde=True)
+     plt.show()
 
 
 #for qualatative data
-#sns.countplot(x=df["children"])
-#sns.countplot(x=df["sex"],hue=df["smoker"])
-# sns.countplot(x=df["smoker"])
-# plt.show()
+sns.countplot(x=df["children"])
+sns.countplot(x=df["sex"],hue=df["smoker"])
+sns.countplot(x=df["smoker"])
+plt.show()
 
 
 #box plot
-# for i in numeric_columns:
-#     sns.boxplot(x=df[i])
-#     plt.show()
+for i in numeric_columns:
+    sns.boxplot(x=df[i])
+    plt.show()
 
 #for getting correlation btwn inputs and outputs
-# sns.heatmap(df.corr(numeric_only=True),annot=True)
-# plt.show()
+ sns.heatmap(df.corr(numeric_only=True),annot=True)
+ plt.show()
 
 
 #2: Data Cleaning and preprocessing
@@ -46,7 +46,7 @@ print(df_cleaned.isnull().sum())
 
 #coverting qulatative into numbers
 #1:Label Enconding
-# print(df_cleaned["sex"].value_counts())
+print(df_cleaned["sex"].value_counts())
 df_cleaned["sex"]=df_cleaned["sex"].map({"male":0,"female":1})
 df_cleaned["smoker"]=df_cleaned["smoker"].map({"yes":1,"no":0})
 df_cleaned.rename(columns={"sex":"is_male","smoker":"is_smoker"},inplace=True)
@@ -74,8 +74,8 @@ df_cleaned[cols]=scaler.fit_transform(df_cleaned[cols])
 print(df_cleaned)
 
 #2.Feature Extraction
-# sns.heatmap(df_cleaned.corr(),annot=True)
-# plt.show()
+sns.heatmap(df_cleaned.corr(),annot=True)
+plt.show()
 
 #checking correlation again target column(charges )
 featured_selection=df_cleaned.corr()['charges'].sort_values(ascending=False)
@@ -92,5 +92,11 @@ for i in categorial:
         print(i,"important")
     else:
         print(i,"remove")
+        
+#final data after everything
+final_dataFrame=df[["age","is_male","children","is_smoker","charges","region_southeast","bmi",   "bmi_category_Normal",
+    "bmi_category_Overweight",
+    "bmi_category_Obese"
+]]
 
 
